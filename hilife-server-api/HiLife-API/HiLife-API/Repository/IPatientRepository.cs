@@ -1,18 +1,20 @@
 ﻿
 
-using HiLife_API.Data.ValueObjects;
+using HiLife_API.Model;
 
 namespace HiLife_API.Repository;
 
 public interface IPatientRepository
 {
-    Task<IEnumerable<PatientVO>> FindAll();
+    Task<IEnumerable<Patient>> FindAll();
 
-    Task<PatientVO> FindById(long id);
+    Task<Patient> FindById(long id);
 
-    Task<PatientVO> Create(PatientVO vo);
+    Task<Patient> Create(Patient patient);
 
-    Task<PatientVO> Update(PatientVO vo);
+    Task<Patient> Update(Patient patient);
 
     Task<bool> Delete(long id);
+
+    bool Exist(long id);
 }

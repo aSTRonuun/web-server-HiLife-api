@@ -9,56 +9,56 @@ namespace HiLife_API.Repository;
 public class PatientRepository : IPatientRepository
 {
     private readonly MySQLContext _context;
-    private IMapper _mapper;
 
-    public PatientRepository(MySQLContext context, IMapper mapper)
+    public PatientRepository(MySQLContext context)
     {
         _context = context;
-        _mapper = mapper;
     }
 
-    public async Task<IEnumerable<PatientVO>> FindAll()
+    public async Task<IEnumerable<Patient>> FindAll()
     {
         List<Patient> patients = await _context.Patients.ToListAsync();
-        return _mapper.Map<List<PatientVO>>(patients);
+        return patients;
     }
 
-    public async Task<PatientVO> FindById(long id)
+    public async Task<Patient> FindById(long id)
     {
         Patient patient = await _context.Patients.Where(p => p.Id == id).FirstOrDefaultAsync();
-        return _mapper.Map<PatientVO>(patient);
+        if (patient == null) return null;
+        return patient;
     }
 
-    public async Task<PatientVO> Create(PatientVO vo)
+    public async Task<Patient> Create(Patient patient)
     {
-        Patient patient = _mapper.Map<Patient>(vo);
+        if (patient == null) return null;
         _context.Patients.Add(patient);
         await _context.SaveChangesAsync();
-        return _mapper.Map<PatientVO>(patient);
+        return patient;
     }
 
-    public async Task<PatientVO> Update(PatientVO vo)
+    public async Task<Patient> Update(Patient patient)
     {
-        Patient patient = _mapper.Map<Patient>(vo);
+        if (patient == null) return null;
+
+        if (!Exist(patient.Id)) return null;
+
         _context.Patients.Update(patient);
         await _context.SaveChangesAsync();
-        return _mapper.Map<PatientVO>(patient);
-    }
+        return patient;
+}
 
     public async Task<bool> Delete(long id)
     {
-        try
-        {
-            Patient patient = await _context.Patients.Where(p => p.Id == id).FirstOrDefaultAsync();
-            if (patient == null) return false;
-            _context.Patients.Remove(patient);
-            await _context.SaveChangesAsync();
-            return true;
-        }
-        catch (Exception ex) { return false; }
+        
+        if (!Exist(id)) return false;
+        Patient patient = await _context.Patients.Where(p => p.Id == id).FirstOrDefaultAsync();
+        _context.Patients.Remove(patient);
+        await _context.SaveChangesAsync();
+        return true;
     }
 
-    
-
-    
+    public bool Exist(long id)
+    {
+        return _context.Patients.Any(p => p.Id == id);
+    }
 }
