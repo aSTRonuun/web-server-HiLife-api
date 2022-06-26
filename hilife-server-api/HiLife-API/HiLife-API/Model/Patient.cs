@@ -1,4 +1,5 @@
 ﻿using HiLife_API.Model.Base;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -7,7 +8,6 @@ namespace HiLife_API.Model;
 [Table("patient")]
 public class Patient : BaseEntity
 {
-    [Column("email")]
     [Required]
     public string Email { get; set; }
 
@@ -28,9 +28,4 @@ public class Patient : BaseEntity
     [Required]
     [StringLength(300)]
     public string Address { get; set; }
-
-    [Column("image_url")]
-    [StringLength(300)]
-    public string ImageURL { get; set; }
-
 }

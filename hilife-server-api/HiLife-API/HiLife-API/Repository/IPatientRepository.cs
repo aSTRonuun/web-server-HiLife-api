@@ -17,4 +17,8 @@ public interface IPatientRepository
     Task<bool> Delete(long id);
 
     bool Exist(long id);
+
+    Task<Patient> ValidateCredentials (Patient patient);
+
+    Task<Patient> RefreshUserInfo(Patient patient);
 }

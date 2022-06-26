@@ -12,6 +12,7 @@ namespace HiLife_API.Controller
     {
         private IPatientBusiness _business;
 
+
         public PatientController(IPatientBusiness business)
         {
             _business = business;
@@ -34,7 +35,7 @@ namespace HiLife_API.Controller
             return Ok(patient);
         }
 
-        [HttpPost]
+        [HttpPost("register")]
         public async Task<ActionResult<PatientVO>> Create(PatientVO vo)
         {
             if (vo == null) return BadRequest();

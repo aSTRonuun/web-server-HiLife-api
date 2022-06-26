@@ -8,4 +8,14 @@ public class BaseEntity
     [Key]
     [Column("id")]
     public long Id { get; set; }
+
+    [Column("image_url")]
+    [StringLength(300)]
+    public string ImageURL { get; set; }
+
+    [Column("refresh_token")]
+    public string RefreshToken { get; set; }
+
+    [Column("refresh_token_experiy_time")]
+    public DateTime RefreshTokenExperyTime { get; set; }
 }
