@@ -57,8 +57,42 @@ public class LoginBusiness : ILoginBusiness
             refreshToken
             );
     }
+
+    public TokenVO CreateCredentials(PatientVO patient)
+    {
+        var patientCredetials = _mapper.Map<Patient>(patient);
+
+        var claims = new List<Claim>
+        {
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
+            new Claim(JwtRegisteredClaimNames.UniqueName, patientCredetials.Email)
+        };
+
+        var acessToken = _tokenService.GenerateAccessToken(claims);
+        var refreshToken = _tokenService.GenerateRefreshToken();
+
+        patientCredetials.RefreshToken = refreshToken;
+        patientCredetials.RefreshTokenExperyTime = DateTime.Now.AddDays(_configuration.DaysToExpiry);
+
+        _repository.Create(patientCredetials);
+
+        DateTime createDate = DateTime.Now;
+        DateTime expirationDate = createDate.AddMinutes(_configuration.Minutes);
+
+        return new TokenVO(
+            true,
+            createDate.ToString(DATE_FORMAT),
+            expirationDate.ToString(DATE_FORMAT),
+            acessToken,
+            refreshToken
+            );
+
+    }
+
     public bool RovokeToken(string userName)
     {
         throw new NotImplementedException();
     }
+
+    
 }

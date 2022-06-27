@@ -1,6 +1,7 @@
 ﻿using HiLife_API.Business;
 using HiLife_API.Data.ValueObjects;
 using HiLife_API.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace HiLife_API.Controller
 {
     [Route("api/v1/[controller]")]
     [ApiController]
+    [Authorize("Bearer")]
     public class PatientController : ControllerBase
     {
         private IPatientBusiness _business;
@@ -35,7 +37,7 @@ namespace HiLife_API.Controller
             return Ok(patient);
         }
 
-        [HttpPost("register")]
+        [HttpPost]
         public async Task<ActionResult<PatientVO>> Create(PatientVO vo)
         {
             if (vo == null) return BadRequest();

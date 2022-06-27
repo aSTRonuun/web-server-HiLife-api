@@ -33,8 +33,10 @@ public class PatientRepository : IPatientRepository
     public async Task<Patient> Create(Patient patient)
     {
         if (patient == null) return null;
+        var passCrypt = ComputeHash(patient.Password, SHA256.Create());
+        patient.Password = passCrypt;
         _context.Patients.Add(patient);
-        await _context.SaveChangesAsync();
+        _context.SaveChanges();
         return patient;
     }
 
