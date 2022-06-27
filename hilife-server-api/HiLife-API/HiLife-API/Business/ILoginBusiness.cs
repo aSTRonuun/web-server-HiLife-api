@@ -6,6 +6,8 @@ namespace HiLife_API.Business
     {
         TokenVO ValidateCredentials(PatientVO patient);
 
+        TokenVO CreateCredentials(PatientVO patient);
+
         bool RovokeToken(string userName);
     }
 }

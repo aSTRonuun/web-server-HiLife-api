@@ -9,5 +9,7 @@ namespace HiLife_API.Model.Context
         public MySQLContext(DbContextOptions<MySQLContext> options) : base(options) {}
 
         public DbSet<Patient> Patients { get; set; }
+
+        public DbSet<Doctor> Doctors { get; set; }
     }
 }

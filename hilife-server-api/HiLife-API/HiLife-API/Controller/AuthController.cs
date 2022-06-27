@@ -17,7 +17,7 @@ namespace HiLife_API.Controller
         }
 
         [HttpPost]
-        [Route("signin")]
+        [Route("Patient/signin")]
         public IActionResult Signin([FromBody] PatientVO patient)
         {
             if (patient == null) return BadRequest("Invalid client request");
@@ -28,5 +28,20 @@ namespace HiLife_API.Controller
 
             return Ok(token);
         }
+
+        [HttpPost]
+        [Route("Patient/register")]
+        public IActionResult Register([FromBody] PatientVO patient)
+        {
+            if (patient == null) return BadRequest("Invalid client request");
+
+            var token = _loginBusiness.CreateCredentials(patient);
+
+            if (token == null) return Unauthorized();
+
+            return Ok(token);
+        }
+
+
     }
 }
