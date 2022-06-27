@@ -65,6 +65,7 @@ public class PatientRepository : IPatientRepository
     }
 
     public async Task<Patient> ValidateCredentials(Patient patient)
+
     {
         var pass = ComputeHash(patient.Password, SHA256.Create());
         var info = await _context.Patients.FirstOrDefaultAsync(u => u.Email == patient.Email && u.Password == pass);
