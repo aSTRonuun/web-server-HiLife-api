@@ -11,11 +11,11 @@ public class BaseEntity
 
     [Column("image_url")]
     [StringLength(300)]
-    public string ImageURL { get; set; }
+    public string? ImageURL { get; set; }
 
     [Column("refresh_token")]
-    public string RefreshToken { get; set; }
+    public string? RefreshToken { get; set; }
 
     [Column("refresh_token_experiy_time")]
-    public DateTime RefreshTokenExperyTime { get; set; }
+    public DateTime? RefreshTokenExperyTime { get; set; }
 }
