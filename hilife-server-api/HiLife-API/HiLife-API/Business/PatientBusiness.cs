@@ -4,8 +4,6 @@ using HiLife_API.Data.ValueObjects;
 using HiLife_API.Model;
 using HiLife_API.Repository;
 using HiLife_API.Services;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 
 namespace HiLife_API.Business;
 
@@ -13,16 +11,11 @@ public class PatientBusiness : IPatientBusiness
 {
     private IPatientRepository _repository;
     private IMapper _mapper;
-    private const string DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    private TokenConfiguration _configuration;
-    private readonly ITokenService _tokenService;
 
-    public PatientBusiness(TokenConfiguration configuration, ITokenService tokenService, IPatientRepository repository, IMapper mapper)
+    public PatientBusiness(IPatientRepository repository, IMapper mapper)
     {
         _repository = repository ?? throw new ArgumentException(nameof(repository));
         _mapper = mapper;
-        _tokenService = tokenService;
-        _configuration = configuration;
     }
 
     public async Task<List<PatientVO>> FindAll()

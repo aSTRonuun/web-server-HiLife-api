@@ -7,5 +7,6 @@
         public string Name { get; set; }
         public string Specialty { get; set; }
         public string CRM { get; set; }
+        public List<DateTime> AvailableTimes { get; set; }
     }
 }

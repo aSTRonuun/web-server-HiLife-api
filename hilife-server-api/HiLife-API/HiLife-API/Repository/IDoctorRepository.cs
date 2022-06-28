@@ -15,7 +15,7 @@ public interface IDoctorRepository
 
     Task<bool> Delete(long id);
 
-    bool Exist(long id);
+    bool Exist(long crm);
 
     Task<Doctor> ValidateCredentials(Doctor doctor);
 

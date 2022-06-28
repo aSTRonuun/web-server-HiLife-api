@@ -1,8 +1,6 @@
 ﻿using HiLife_API.Model;
 using HiLife_API.Model.Context;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace HiLife_API.Repository;
 
@@ -31,8 +29,6 @@ public class DoctorRepository : IDoctorRepository
     public async Task<Doctor> Create(Doctor doctor)
     {
         if (doctor == null) return null;
-        var passCrypt = ComputeHash(doctor.Password, SHA256.Create());
-        doctor.Password = passCrypt;
         _context.Doctors.Add(doctor);
         await _context.SaveChangesAsync();
         return doctor;
@@ -58,27 +54,20 @@ public class DoctorRepository : IDoctorRepository
         return true;
     }
 
-    public bool Exist(long id)
+    public bool Exist(long crm)
     {
-        return _context.Doctors.Any(p => p.Id == id);
+        return _context.Doctors.Any(p => p.CRM == crm);
+    }
+
+    public async Task<Doctor> ValidateCredentials(Doctor doctor)
+    {
+        var info = await _context.Doctors.FirstOrDefaultAsync(u => u.Email == doctor.Email && u.Password == doctor.Password);
+
+        return info;
     }
 
     public Task<Doctor> RefreshUserInfo(Doctor doctor)
     {
         throw new NotImplementedException();
-    }
-
-    
-
-    public Task<Doctor> ValidateCredentials(Doctor doctor)
-    {
-        throw new NotImplementedException();
-    }
-
-    private string ComputeHash(string input, SHA256 algorithm)
-    {
-        Byte[] inputBytes = Encoding.UTF8.GetBytes(input);
-        Byte[] hashedBytes = algorithm.ComputeHash(inputBytes);
-        return BitConverter.ToString(hashedBytes);
     }
 }
