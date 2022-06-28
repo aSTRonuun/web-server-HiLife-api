@@ -14,6 +14,8 @@ public class MappingConfig
         {
             config.CreateMap<PatientVO, Patient>();
             config.CreateMap<Patient, PatientVO>();
+            config.CreateMap<DoctorVO, Doctor>();
+            config.CreateMap<Doctor, DoctorVO>();
         });
         return mappingConfig;
     }

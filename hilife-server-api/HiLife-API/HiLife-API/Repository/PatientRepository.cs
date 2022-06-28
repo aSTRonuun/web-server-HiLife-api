@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using HiLife_API.Data.ValueObjects;
-using HiLife_API.Model;
+﻿using HiLife_API.Model;
 using HiLife_API.Model.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
@@ -49,7 +47,7 @@ public class PatientRepository : IPatientRepository
         _context.Patients.Update(patient);
         await _context.SaveChangesAsync();
         return patient;
-}
+    }
 
     public async Task<bool> Delete(long id)
     {
@@ -84,7 +82,7 @@ public class PatientRepository : IPatientRepository
 
     public async Task<Patient> RefreshUserInfo(Patient patient)
     {
-        if (_context.Patients.Any(u => u.Id.Equals(patient.Id))) return null;
+        if (!Exist(patient.Id)) return null;
 
         var result = await _context.Patients.SingleOrDefaultAsync(p => p.Id == patient.Id);
         Console.WriteLine(result);

@@ -12,6 +12,12 @@ namespace HiLife_API.Model
         [Column("name")]
         public string Name { get; set; }
 
+        [Column("email")]
+        public string Email { get; set; }
+
+        [Column("password")]
+        public string Password { get; set; }
+
         [Column("specialty")]
         public int Specialty { get; set; }
 
