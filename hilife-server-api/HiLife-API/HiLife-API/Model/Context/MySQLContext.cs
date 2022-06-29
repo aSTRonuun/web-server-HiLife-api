@@ -1,15 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace HiLife_API.Model.Context
+namespace HiLife_API.Model.Context;
+
+public class MySQLContext : DbContext
 {
-    public class MySQLContext : DbContext
-    {
-        public MySQLContext() {}
+    public MySQLContext() {}
 
-        public MySQLContext(DbContextOptions<MySQLContext> options) : base(options) {}
+    public MySQLContext(DbContextOptions<MySQLContext> options) : base(options) {}
 
-        public DbSet<Patient> Patients { get; set; }
+    public DbSet<Patient> Patients { get; set; }
 
-        public DbSet<Doctor> Doctors { get; set; }
-    }
+    public DbSet<Doctor> Doctors { get; set; }
+
+    public DbSet<AvailableTime> AvailableTimes { get; set; }
 }

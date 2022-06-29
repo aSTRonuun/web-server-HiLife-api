@@ -2,21 +2,37 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace HiLife_API.Model
+namespace HiLife_API.Model;
+
+public class Doctor : BaseEntity
 {
-    public class Doctor : BaseEntity
-    {
-        [Column("name_hospital")]
-        public string? HospitalName { get; set; }
 
-        [Column("name")]
-        public string Name { get; set; }
+    [Column("name_hospital")]
+    public string? HospitalName { get; set; }
 
-        [Column("specialty")]
-        public int Specialty { get; set; }
+    [Column("name")]
+    public string Name { get; set; }
 
-        [Column("crm")]
-        [Required]
-        public string CRM { get; set; }
-    }
+    [Column("email")]
+    public string Email { get; set; }
+
+    [Column("password")]
+    public string Password { get; set; }
+
+    [Column("specialty")]
+    public string Specialty { get; set; }
+
+    [Column("crm")]
+    [Required]
+    public int CRM { get; set; }
+
+    public List<AvailableTime>? AvailableTimes { get; set; }
+}
+
+[Table("availabletime")]
+public class AvailableTime
+{
+    [Key]
+    public long DoctorId { get; set; }
+    public DateTime? Time { get; set; }
 }

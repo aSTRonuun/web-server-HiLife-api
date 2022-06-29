@@ -1,10 +1,6 @@
-﻿using AutoMapper;
-using HiLife_API.Data.ValueObjects;
-using HiLife_API.Model;
+﻿using HiLife_API.Model;
 using HiLife_API.Model.Context;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace HiLife_API.Repository;
 
@@ -33,8 +29,6 @@ public class PatientRepository : IPatientRepository
     public async Task<Patient> Create(Patient patient)
     {
         if (patient == null) return null;
-        var passCrypt = ComputeHash(patient.Password, SHA256.Create());
-        patient.Password = passCrypt;
         _context.Patients.Add(patient);
         _context.SaveChanges();
         return patient;
@@ -49,7 +43,7 @@ public class PatientRepository : IPatientRepository
         _context.Patients.Update(patient);
         await _context.SaveChangesAsync();
         return patient;
-}
+    }
 
     public async Task<bool> Delete(long id)
     {
@@ -68,22 +62,14 @@ public class PatientRepository : IPatientRepository
 
     public async Task<Patient> ValidateCredentials(Patient patient)
     {
-        var pass = ComputeHash(patient.Password, SHA256.Create());
-        var info = await _context.Patients.FirstOrDefaultAsync(u => u.Email == patient.Email && u.Password == pass);
+        var info = await _context.Patients.FirstOrDefaultAsync(u => u.Email == patient.Email && u.Password == patient.Password);
 
         return info;
     }
 
-    private string ComputeHash(string input, SHA256 algorithm)
-    {
-        Byte[] inputBytes = Encoding.UTF8.GetBytes(input);
-        Byte[] hashedBytes = algorithm.ComputeHash(inputBytes);
-        return BitConverter.ToString(hashedBytes);
-    }
-
     public async Task<Patient> RefreshUserInfo(Patient patient)
     {
-        if (_context.Patients.Any(u => u.Id.Equals(patient.Id))) return null;
+        if (!Exist(patient.Id)) return null;
 
         var result = await _context.Patients.SingleOrDefaultAsync(p => p.Id == patient.Id);
         Console.WriteLine(result);
