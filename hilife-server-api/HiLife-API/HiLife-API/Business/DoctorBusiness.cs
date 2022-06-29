@@ -5,7 +5,7 @@ using HiLife_API.Repository;
 
 namespace HiLife_API.Business
 {
-    public class DoctorBusiness
+    public class DoctorBusiness : IDoctorBusiness
     {
         private IDoctorRepository _repository;
         private IMapper _mapper;

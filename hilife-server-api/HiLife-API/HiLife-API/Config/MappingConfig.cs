@@ -14,8 +14,10 @@ public class MappingConfig
         {
             config.CreateMap<PatientVO, Patient>();
             config.CreateMap<Patient, PatientVO>();
-            config.CreateMap<DoctorVO, Doctor>();
-            config.CreateMap<Doctor, DoctorVO>();
+            config.CreateMap<Doctor, DoctorVO>()
+                .ForMember(dest => dest.AvailableTimes,
+                opt => opt.MapFrom(src => src.AvailableTimes.
+                    Select(x => new AvailableTimeVO { DoctorId = x.DoctorId,  Time = x.Time })));
         });
         return mappingConfig;
     }

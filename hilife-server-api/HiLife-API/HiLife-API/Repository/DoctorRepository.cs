@@ -15,13 +15,15 @@ public class DoctorRepository : IDoctorRepository
 
     public async Task<IEnumerable<Doctor>> FindAll()
     {
-        List<Doctor> doctors = await _context.Doctors.ToListAsync();
+        List<Doctor> doctors = await _context.Doctors.Include(d => d.AvailableTimes).ToListAsync();
+
         return doctors;
     }
 
     public async Task<Doctor> FindById(long id)
     {
         Doctor doctor = await _context.Doctors.Where(d => d.Id == id).FirstOrDefaultAsync();
+
         if (doctor == null) return null;
         return doctor;
     }

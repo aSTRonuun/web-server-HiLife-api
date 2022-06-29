@@ -6,7 +6,14 @@
         public string? HospitalName { get; set; }
         public string Name { get; set; }
         public string Specialty { get; set; }
-        public string CRM { get; set; }
-        public List<DateTime> AvailableTimes { get; set; }
+        public int CRM { get; set; }
+        public List<AvailableTimeVO> AvailableTimes { get; set; }
     }
+
+    public class AvailableTimeVO
+    {
+        public long DoctorId { get; set; }
+        public DateTime? Time { get; set; }
+    }
+
 }

@@ -29,6 +29,7 @@ public class Doctor : BaseEntity
     public List<AvailableTime>? AvailableTimes { get; set; }
 }
 
+[Table("availabletime")]
 public class AvailableTime
 {
     [Key]

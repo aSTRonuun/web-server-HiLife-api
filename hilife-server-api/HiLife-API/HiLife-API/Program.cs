@@ -33,6 +33,9 @@ builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IPatientBusiness, PatientBusiness>();
 builder.Services.AddScoped<ILoginBusiness, LoginBusiness>();
 
+builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
+builder.Services.AddScoped<IDoctorBusiness, DoctorBusiness>();
+
 
 builder.Services.AddTransient<ITokenService, TokenService>();
 
