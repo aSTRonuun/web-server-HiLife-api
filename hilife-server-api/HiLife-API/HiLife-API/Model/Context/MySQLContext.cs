@@ -13,4 +13,6 @@ public class MySQLContext : DbContext
     public DbSet<Doctor> Doctors { get; set; }
 
     public DbSet<AvailableTime> AvailableTimes { get; set; }
+
+    public DbSet<Appointment> Appointments { get; set; }
 }

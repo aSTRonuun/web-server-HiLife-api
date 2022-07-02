@@ -40,7 +40,7 @@ public class DoctorRepository : IDoctorRepository
     {
         if (doctor == null) return null;
 
-        if (!Exist(doctor.Id)) return null;
+        if (!Exist(doctor.CRM)) return null;
 
         _context.Doctors.Update(doctor);
         await _context.SaveChangesAsync();
