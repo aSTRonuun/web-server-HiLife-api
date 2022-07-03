@@ -15,7 +15,7 @@ public class PatientRepository : IPatientRepository
 
     public async Task<IEnumerable<Patient>> FindAll()
     {
-        List<Patient> patients = await _context.Patients.ToListAsync();
+        List<Patient> patients = await _context.Patients.Include(p => p.Appointments).ToListAsync();
         return patients;
     }
 

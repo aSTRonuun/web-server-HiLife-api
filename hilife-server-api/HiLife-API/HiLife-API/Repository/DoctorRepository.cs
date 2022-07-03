@@ -15,14 +15,20 @@ public class DoctorRepository : IDoctorRepository
 
     public async Task<IEnumerable<Doctor>> FindAll()
     {
-        List<Doctor> doctors = await _context.Doctors.Include(d => d.AvailableTimes).ToListAsync();
+        List<Doctor> doctors = await _context.Doctors
+            .Include(d => d.AvailableTimes)
+            .Include(d => d.Appointments)
+            .ToListAsync();
 
         return doctors;
     }
 
     public async Task<Doctor> FindById(long id)
     {
-        Doctor doctor = await _context.Doctors.Include(d => d.AvailableTimes).Where(d => d.Id == id).FirstOrDefaultAsync();
+        Doctor doctor = await _context.Doctors
+            .Include(d => d.AvailableTimes)
+            .Include(d => d.Appointments)
+            .Where(d => d.Id == id).FirstOrDefaultAsync();
 
         if (doctor == null) return null;
         return doctor;
@@ -49,8 +55,8 @@ public class DoctorRepository : IDoctorRepository
 
     public async Task<bool> Delete(long id)
     {
-        if (!Exist(id)) return false;
         Doctor doctor = await _context.Doctors.Where(p => p.Id == id).FirstOrDefaultAsync();
+        if (doctor == null) return false;
         _context.Doctors.Remove(doctor);
         await _context.SaveChangesAsync();
         return true;

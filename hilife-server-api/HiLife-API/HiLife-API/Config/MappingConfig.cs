@@ -1,6 +1,4 @@
-﻿
-
-using AutoMapper;
+﻿using AutoMapper;
 using HiLife_API.Data.ValueObjects;
 using HiLife_API.Model;
 
@@ -12,7 +10,9 @@ public class MappingConfig
     {
         var mappingConfig = new MapperConfiguration(config =>
         {
-            config.CreateMap<PatientVO, Patient>();
+        config.CreateMap<PatientVO, Patient>()
+            .ForMember(dest => dest.Appointments,
+            opt => opt.MapFrom(src => src.Appointments));
             config.CreateMap<Patient, PatientVO>();
             config.CreateMap<Doctor, DoctorVO>()
                 .ForMember(dest => dest.AvailableTimes,
@@ -22,6 +22,8 @@ public class MappingConfig
                 .ForMember(dest => dest.AvailableTimes,
                 opt => opt.MapFrom(src => src.AvailableTimes
                     .Select(x => new AvailableTime { DoctorId = x.Id, Time = x.Time})));
+            config.CreateMap<Appointment, AppointmentVO>();
+            config.CreateMap<AppointmentVO, Appointment>();
         });
         return mappingConfig;
     }

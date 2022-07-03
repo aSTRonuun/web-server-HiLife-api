@@ -9,4 +9,6 @@ public class PatientVO
     public string? Cep { get; set; }
     public string? Address { get; set; }
     public string? ImageURL { get; set; }
+
+    public List<AppointmentVO> Appointments { get; set; }
 }

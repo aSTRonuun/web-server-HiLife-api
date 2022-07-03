@@ -1,12 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using HiLife_API.Model;
 
-namespace HiLife_API.Model
+namespace HiLife_API.Data.ValueObjects
 {
-    [Table("appointments")]
-    public class Appointment
+    public class AppointmentVO
     {
-        [Key]
         public long Id { get; set; }
 
         public long PatientId { get; set; }
@@ -14,9 +11,6 @@ namespace HiLife_API.Model
         public long DoctorId { get; set; }
 
         public string? Modality { get; set; }
-
-        [Required]
         public DateTime AppointmentTime { get; set; }
-
     }
 }

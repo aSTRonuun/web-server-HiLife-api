@@ -10,6 +10,8 @@
         public string Specialty { get; set; }
         public int CRM { get; set; }
         public List<AvailableTimeVO> AvailableTimes { get; set; }
+
+        public List<AppointmentVO> Appointments { get; set; }
     }
 
     public class AvailableTimeVO

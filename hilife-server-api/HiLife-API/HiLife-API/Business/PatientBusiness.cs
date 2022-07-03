@@ -10,11 +10,13 @@ namespace HiLife_API.Business;
 public class PatientBusiness : IPatientBusiness
 {
     private IPatientRepository _repository;
+    private IAppointmentRepository _appointmentRepository;
     private IMapper _mapper;
 
-    public PatientBusiness(IPatientRepository repository, IMapper mapper)
+    public PatientBusiness(IPatientRepository repository, IAppointmentRepository appointmentRepository, IMapper mapper)
     {
         _repository = repository ?? throw new ArgumentException(nameof(repository));
+        _appointmentRepository = appointmentRepository ?? throw new ArgumentException(nameof(appointmentRepository));
         _mapper = mapper;
     }
 
@@ -54,5 +56,12 @@ public class PatientBusiness : IPatientBusiness
         var result = await _repository.Update(patient);
         if (result == null) return null;
         return _mapper.Map<PatientVO>(result);
+    }
+
+    public async Task<List<AppointmentVO>> FindAllAppointmentsByIdPatient(long id)
+    {
+        var appointments = await _appointmentRepository.FindAllAppointmentsByIdPatient(id);
+        if (appointments == null) return null;
+        return _mapper.Map<List<AppointmentVO>>(appointments);
     }
 }
