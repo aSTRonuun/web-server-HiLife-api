@@ -41,10 +41,9 @@ namespace HiLife_API.Business
             return _mapper.Map<DoctorVO>(result);
         }
 
-        public async Task<bool> Delete(DoctorVO vo)
+        public async Task<bool> Delete(long id)
         {
-            Doctor doctor = _mapper.Map<Doctor>(vo);
-            var result = await _repository.Delete(doctor.Id);
+            var result = await _repository.Delete(id);
             if (!result) return false;
             return true;
         }

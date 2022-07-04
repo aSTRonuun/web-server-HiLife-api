@@ -17,6 +17,8 @@ public interface IDoctorRepository
 
     bool Exist(long crm);
 
+    Task<IEnumerable<AvailableTime>> FindAllByIdDoctor(long id);
+
     Task<Doctor> ValidateCredentials(Doctor doctor);
 
     Task<Doctor> RefreshUserInfo(Doctor doctor);

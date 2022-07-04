@@ -59,10 +59,10 @@ public class DoctorController : ControllerBase
     }
 
     [HttpDelete]
-    public async Task<ActionResult> Delete(DoctorVO vo)
+    public async Task<ActionResult> Delete(long id)
     {
-        if (vo == null) return BadRequest();
-        var status = await _business.Delete(vo);
+        if (id == null) return BadRequest();
+        var status = await _business.Delete(id);
         if (!status) return BadRequest();
         return Ok(status);
     }

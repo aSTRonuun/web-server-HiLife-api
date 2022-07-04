@@ -9,6 +9,7 @@ namespace HiLife_API.Controller
 {
     [Route("api/v1/[controller]")]
     [ApiController]
+    [Authorize("Bearer")]
     public class PatientController : ControllerBase
     {
         private IPatientBusiness _business;

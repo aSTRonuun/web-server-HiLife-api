@@ -67,6 +67,13 @@ public class DoctorRepository : IDoctorRepository
         return _context.Doctors.Any(p => p.CRM == crm);
     }
 
+    public async Task<IEnumerable<AvailableTime>> FindAllByIdDoctor(long id)
+    {
+        List<AvailableTime> availables = await _context.AvailableTimes.Where(a => a.DoctorId == id).ToListAsync();
+        if (availables == null) return null;
+        return availables;
+    }
+
     public async Task<Doctor> ValidateCredentials(Doctor doctor)
     {
         var info = await _context.Doctors.FirstOrDefaultAsync(u => u.Email == doctor.Email && u.Password == doctor.Password);

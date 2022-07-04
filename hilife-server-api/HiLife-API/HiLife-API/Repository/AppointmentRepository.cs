@@ -40,7 +40,6 @@ public class AppointmentRepository : IAppointmentRepository
 
     public async Task<Appointment> Update(Appointment appointment)
     {
-        if (appointment == null) return null;
 
         if (!Exist(appointment.Id)) return null;
 
