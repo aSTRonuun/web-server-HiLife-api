@@ -28,4 +28,6 @@ public class Patient : BaseEntity
     [Required]
     [StringLength(300)]
     public string Address { get; set; }
+
+    public List<Appointment>? Appointments { get; set; }
 }

@@ -32,6 +32,15 @@ public class DoctorController : ControllerBase
         return Ok(doctor);
     }
 
+    [HttpGet("appointments/{id}")]
+    public async Task<ActionResult<IEnumerable<AppointmentVO>>> FindAllAppointmentsByIdDoctor(long id)
+    {
+        var doctor = await _business.FindAllAppointmentsByIdDoctor(id);
+        if (doctor == null) return NotFound();
+
+        return Ok(doctor);
+    }
+
     [HttpPost]
     public async Task<ActionResult<DoctorVO>> Create(DoctorVO vo)
     {
@@ -50,13 +59,14 @@ public class DoctorController : ControllerBase
     }
 
     [HttpDelete]
-    public async Task<ActionResult> Delete(DoctorVO vo)
+    public async Task<ActionResult> Delete(long id)
     {
-        if (vo == null) return BadRequest();
-        var status = await _business.Delete(vo);
+        if (id == null) return BadRequest();
+        var status = await _business.Delete(id);
         if (!status) return BadRequest();
         return Ok(status);
     }
+
 
 
 }

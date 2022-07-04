@@ -27,6 +27,9 @@ public class Doctor : BaseEntity
     public int CRM { get; set; }
 
     public List<AvailableTime>? AvailableTimes { get; set; }
+
+    public List<Appointment>? Appointments { get; set; }
+
 }
 
 [Table("availabletime")]

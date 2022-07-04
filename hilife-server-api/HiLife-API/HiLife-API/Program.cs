@@ -36,6 +36,9 @@ builder.Services.AddScoped<ILoginBusiness, LoginBusiness>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<IDoctorBusiness, DoctorBusiness>();
 
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+builder.Services.AddScoped<IAppointmentBusiness, AppointmentBusiness>();
+
 
 builder.Services.AddTransient<ITokenService, TokenService>();
 
@@ -91,6 +94,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseAuthorization();
 
 app.UseHttpsRedirection();
 

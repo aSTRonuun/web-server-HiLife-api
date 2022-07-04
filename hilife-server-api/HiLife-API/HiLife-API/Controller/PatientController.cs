@@ -9,6 +9,7 @@ namespace HiLife_API.Controller
 {
     [Route("api/v1/[controller]")]
     [ApiController]
+    [Authorize("Bearer")]
     public class PatientController : ControllerBase
     {
         private IPatientBusiness _business;
@@ -27,6 +28,8 @@ namespace HiLife_API.Controller
             return Ok(patients);
         }
 
+        
+
         [HttpGet("{id}")]
         public async Task<ActionResult<PatientVO>> FindById(long id)
         {
@@ -34,6 +37,15 @@ namespace HiLife_API.Controller
             if (patient == null) return NotFound();
 
             return Ok(patient);
+        }
+
+        [HttpGet("appointments/{id}")]
+        public async Task<ActionResult<IEnumerable<AppointmentVO>>> FindAllAppointmentsByIdPatient(long id)
+        {
+            var appointments = await _business.FindAllAppointmentsByIdPatient(id);
+            if (appointments == null) return NotFound();
+            return Ok(appointments);
+
         }
 
         [HttpPost]
@@ -61,5 +73,7 @@ namespace HiLife_API.Controller
             if (!status) return BadRequest();
             return Ok(status);
         }
+
+        
     }
 }

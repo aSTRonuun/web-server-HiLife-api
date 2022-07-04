@@ -15,14 +15,20 @@ public class DoctorRepository : IDoctorRepository
 
     public async Task<IEnumerable<Doctor>> FindAll()
     {
-        List<Doctor> doctors = await _context.Doctors.Include(d => d.AvailableTimes).ToListAsync();
+        List<Doctor> doctors = await _context.Doctors
+            .Include(d => d.AvailableTimes)
+            .Include(d => d.Appointments)
+            .ToListAsync();
 
         return doctors;
     }
 
     public async Task<Doctor> FindById(long id)
     {
-        Doctor doctor = await _context.Doctors.Where(d => d.Id == id).FirstOrDefaultAsync();
+        Doctor doctor = await _context.Doctors
+            .Include(d => d.AvailableTimes)
+            .Include(d => d.Appointments)
+            .Where(d => d.Id == id).FirstOrDefaultAsync();
 
         if (doctor == null) return null;
         return doctor;
@@ -40,7 +46,7 @@ public class DoctorRepository : IDoctorRepository
     {
         if (doctor == null) return null;
 
-        if (!Exist(doctor.Id)) return null;
+        if (!Exist(doctor.CRM)) return null;
 
         _context.Doctors.Update(doctor);
         await _context.SaveChangesAsync();
@@ -49,8 +55,8 @@ public class DoctorRepository : IDoctorRepository
 
     public async Task<bool> Delete(long id)
     {
-        if (!Exist(id)) return false;
         Doctor doctor = await _context.Doctors.Where(p => p.Id == id).FirstOrDefaultAsync();
+        if (doctor == null) return false;
         _context.Doctors.Remove(doctor);
         await _context.SaveChangesAsync();
         return true;
@@ -59,6 +65,13 @@ public class DoctorRepository : IDoctorRepository
     public bool Exist(long crm)
     {
         return _context.Doctors.Any(p => p.CRM == crm);
+    }
+
+    public async Task<IEnumerable<AvailableTime>> FindAllByIdDoctor(long id)
+    {
+        List<AvailableTime> availables = await _context.AvailableTimes.Where(a => a.DoctorId == id).ToListAsync();
+        if (availables == null) return null;
+        return availables;
     }
 
     public async Task<Doctor> ValidateCredentials(Doctor doctor)
