@@ -36,6 +36,8 @@ public class Doctor : BaseEntity
 public class AvailableTime
 {
     [Key]
-    public long DoctorId { get; set; }
+    public long Id { get; set; }
     public DateTime? Time { get; set; }
+
+    public long DoctorId { get; set; }
 }

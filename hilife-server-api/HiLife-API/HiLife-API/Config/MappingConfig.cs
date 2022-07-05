@@ -16,14 +16,13 @@ public class MappingConfig
             config.CreateMap<Patient, PatientVO>();
             config.CreateMap<Doctor, DoctorVO>()
                 .ForMember(dest => dest.AvailableTimes,
-                opt => opt.MapFrom(src => src.AvailableTimes.
-                    Select(x => new AvailableTimeVO { Id = x.DoctorId,  Time = x.Time})));
+                opt => opt.MapFrom(src => src.AvailableTimes));
             config.CreateMap<DoctorVO, Doctor>()
                 .ForMember(dest => dest.AvailableTimes,
-                opt => opt.MapFrom(src => src.AvailableTimes
-                    .Select(x => new AvailableTime { DoctorId = x.Id, Time = x.Time})));
+                opt => opt.MapFrom(src => src.AvailableTimes));
             config.CreateMap<Appointment, AppointmentVO>();
             config.CreateMap<AppointmentVO, Appointment>();
+            config.CreateMap<AvailableTime, AvailableTimeVO>().ReverseMap();
         });
         return mappingConfig;
     }

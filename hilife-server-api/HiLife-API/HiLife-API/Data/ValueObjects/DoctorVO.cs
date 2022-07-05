@@ -9,15 +9,16 @@
         public string Name { get; set; }
         public string Specialty { get; set; }
         public int CRM { get; set; }
-        public List<AvailableTimeVO> AvailableTimes { get; set; }
+        public List<AvailableTimeVO>? AvailableTimes { get; set; }
 
-        public List<AppointmentVO> Appointments { get; set; }
+        public List<AppointmentVO>? Appointments { get; set; }
     }
 
     public class AvailableTimeVO
     {
         public long Id { get; set; }
         public DateTime? Time { get; set; }
+
         public long DoctorId { get; set; }
     }
 

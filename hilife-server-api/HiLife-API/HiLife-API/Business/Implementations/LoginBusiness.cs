@@ -7,7 +7,7 @@ using HiLife_API.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace HiLife_API.Business;
+namespace HiLife_API.Business.Implementations;
 
 public class LoginBusiness : ILoginBusiness
 {
@@ -94,5 +94,5 @@ public class LoginBusiness : ILoginBusiness
         throw new NotImplementedException();
     }
 
-    
+
 }

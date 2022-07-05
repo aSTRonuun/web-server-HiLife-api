@@ -1,13 +1,11 @@
 ﻿using HiLife_API.Business;
 using HiLife_API.Data.ValueObjects;
-using HiLife_API.Repository;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HiLife_API.Controller
 {
-    [Route("api/v1/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     [Authorize("Bearer")]
     public class PatientController : ControllerBase
@@ -39,7 +37,7 @@ namespace HiLife_API.Controller
             return Ok(patient);
         }
 
-        [HttpGet("appointments/{id}")]
+        [HttpGet("{id}/appointments")]
         public async Task<ActionResult<IEnumerable<AppointmentVO>>> FindAllAppointmentsByIdPatient(long id)
         {
             var appointments = await _business.FindAllAppointmentsByIdPatient(id);

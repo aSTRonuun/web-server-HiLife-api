@@ -32,13 +32,22 @@ public class DoctorController : ControllerBase
         return Ok(doctor);
     }
 
-    [HttpGet("appointments/{id}")]
+    [HttpGet("{id}/availableTimes")]
+    public async Task<ActionResult<IEnumerable<AvailableTimeVO>>> FindAllAvailableTimeByIdDoctor(long id)
+    {
+        var availables = await _business.FindAllAvailableTimeByIdDoctor(id);
+        if (availables == null) return NotFound();
+
+        return Ok(availables);
+    }
+
+    [HttpGet("{id}/appointments")]
     public async Task<ActionResult<IEnumerable<AppointmentVO>>> FindAllAppointmentsByIdDoctor(long id)
     {
-        var doctor = await _business.FindAllAppointmentsByIdDoctor(id);
-        if (doctor == null) return NotFound();
+        var appointments = await _business.FindAllAppointmentsByIdDoctor(id);
+        if (appointments == null) return NotFound();
 
-        return Ok(doctor);
+        return Ok(appointments);
     }
 
     [HttpPost]
@@ -47,6 +56,14 @@ public class DoctorController : ControllerBase
         if (vo == null) return BadRequest();
         var doctor = await _business.Create(vo);
         return Ok(doctor);
+    }
+
+    [HttpPost("availableTimes")]
+    public async Task<ActionResult<AvailableTimeVO>> CreateAvailableTime(AvailableTimeVO vo)
+    {
+        if (vo == null) return BadRequest();
+        var available = await _business.CreateAvailableTime(vo);
+        return Ok(available);
     }
 
     [HttpPut]
