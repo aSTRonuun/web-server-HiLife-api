@@ -67,11 +67,18 @@ public class DoctorRepository : IDoctorRepository
         return _context.Doctors.Any(p => p.CRM == crm);
     }
 
-    public async Task<IEnumerable<AvailableTime>> FindAllByIdDoctor(long id)
+    public async Task<IEnumerable<AvailableTime>> FindAllAvailableTimeByIdDoctor(long id)
     {
         List<AvailableTime> availables = await _context.AvailableTimes.Where(a => a.DoctorId == id).ToListAsync();
         if (availables == null) return null;
         return availables;
+    }
+
+    public async Task<AvailableTime> CreateAvailableTime(AvailableTime availableTime)
+    {
+        _context.AvailableTimes.Add(availableTime);
+        await _context.SaveChangesAsync();
+        return availableTime;
     }
 
     public async Task<Doctor> ValidateCredentials(Doctor doctor)
@@ -84,5 +91,5 @@ public class DoctorRepository : IDoctorRepository
     public Task<Doctor> RefreshUserInfo(Doctor doctor)
     {
         throw new NotImplementedException();
-    }
+    } 
 }

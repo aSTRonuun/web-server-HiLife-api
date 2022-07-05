@@ -2,7 +2,7 @@
 using HiLife_API.Model.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace HiLife_API.Repository;
+namespace HiLife_API.Repository.Implementations;
 
 public class PatientRepository : IPatientRepository
 {
@@ -47,7 +47,7 @@ public class PatientRepository : IPatientRepository
 
     public async Task<bool> Delete(long id)
     {
-        
+
         if (!Exist(id)) return false;
         Patient patient = await _context.Patients.Where(p => p.Id == id).FirstOrDefaultAsync();
         _context.Patients.Remove(patient);

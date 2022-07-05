@@ -2,7 +2,7 @@
 using HiLife_API.Model.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace HiLife_API.Repository;
+namespace HiLife_API.Repository.Implementations;
 
 public class AppointmentRepository : IAppointmentRepository
 {
@@ -86,6 +86,4 @@ public class AppointmentRepository : IAppointmentRepository
         List<Appointment> appointments = await _context.Appointments.Where(a => a.DoctorId == id).ToListAsync();
         return appointments;
     }
-
-
 }

@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
-using HiLife_API.Configurations;
 using HiLife_API.Data.ValueObjects;
 using HiLife_API.Model;
 using HiLife_API.Repository;
-using HiLife_API.Services;
 
-namespace HiLife_API.Business;
+namespace HiLife_API.Business.Implementations;
 
 public class PatientBusiness : IPatientBusiness
 {

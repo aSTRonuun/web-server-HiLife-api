@@ -9,6 +9,10 @@ public interface IDoctorBusiness
 
     Task<List<AppointmentVO>> FindAllAppointmentsByIdDoctor(long id);
 
+    Task<List<AvailableTimeVO>> FindAllAvailableTimeByIdDoctor(long id);
+
+    Task<AvailableTimeVO> CreateAvailableTime(AvailableTimeVO vo);
+
     Task<DoctorVO> FindById(long id);
 
     Task<DoctorVO> Create(DoctorVO vo);
@@ -16,4 +20,5 @@ public interface IDoctorBusiness
     Task<DoctorVO> Update(DoctorVO vo);
 
     Task<bool> Delete(long id);
+
 }

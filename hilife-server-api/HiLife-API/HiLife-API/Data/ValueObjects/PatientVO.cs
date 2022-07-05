@@ -10,5 +10,5 @@ public class PatientVO
     public string? Address { get; set; }
     public string? ImageURL { get; set; }
 
-    public List<AppointmentVO> Appointments { get; set; }
+    public List<AppointmentVO>? Appointments { get; set; }
 }
