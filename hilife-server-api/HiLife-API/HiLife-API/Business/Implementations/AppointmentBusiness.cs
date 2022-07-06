@@ -49,7 +49,7 @@ public class AppointmentBusiness : IAppointmentBusiness
             return null;
         }
 
-        _repository.Create(appointment);
+        await _repository.Create(appointment);
         return _mapper.Map<AppointmentVO>(appointment);
 
 
